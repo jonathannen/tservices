@@ -5,8 +5,12 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "lint": "eslint -f eslint-formatter-prompter packages/",
-    "format": "prettier --write packages/"
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "format": "prettier --write packages/",
+    "test": "node --experimental-test-module-mocks --test 'packages/**/*.test.ts'",
+    "check": "pnpm lint && pnpm typecheck",
+    "publish-all": "pnpm -r publish --access public"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

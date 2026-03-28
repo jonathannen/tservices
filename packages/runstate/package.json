@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "license": "MIT",
   "type": "module",
+  "scripts": {
+    "lint": "eslint -f eslint-formatter-prompter .",
+    "typecheck": "tsc --noEmit"
+  },
   "exports": {
     "./types": "./types/index.ts",
     "./nodejs": "./nodejs/index.ts",

@@ -1,0 +1,30 @@
+{
+  "name": "@tservices/ticker",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint -f eslint-formatter-prompter .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tservices/runstate": "workspace:*",
+    "luxon": "^3.7.2"
+  },
+  "devDependencies": {
+    "@types/luxon": "^3.6.2",
+    "@types/node": "^25.5.0"
+  },
+  "exports": {
+    "./types": "./types/index.ts",
+    "./test": "./test/index.ts",
+    "./local": "./local/index.ts",
+    "./nodejs": "./nodejs/index.ts",
+    "./noop": "./noop/index.ts",
+    "./watchdog": "./watchdog/index.ts",
+    "./public/annotate": "./public/annotate.ts",
+    "./public/every-duration": "./public/every-duration.ts",
+    "./public/every-period": "./public/every-period.ts",
+    "./public/interruptable": "./public/interruptable.ts"
+  }
+}
