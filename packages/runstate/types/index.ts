@@ -10,7 +10,16 @@ export type RunstateOutcome = undefined | "success" | "error";
  * not expected that users of this service would or should call that.
  */
 export interface RunstateService {
+  /**
+   * AbortSignal that can be passed to facilities like fetch. This
+   * controller is triggered when shutdown is beginning.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/AbortController
+   */
   readonly abort: AbortSignal;
+
+  /**
+   * If complete, this is the outcome of this runstate execution.
+   */
   readonly outcome: RunstateOutcome;
 
   /**

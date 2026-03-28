@@ -1,8 +1,28 @@
-import type { DestroyCallback, RunstateOutcome } from "../types";
+import type {
+  DestroyCallback,
+  RunstateOutcome,
+  RunstateService,
+} from "../types";
+
+export type NodejsRunstateService = ReturnType<
+  typeof createNodeRunstateService
+>;
 
 /**
- * Creates a local implementation of Runstate Service that manages destroy callbacks
- * for service cleanup operations.
+ * Creates a Node.js Runstate Service that hooks into `SIGINT` and `SIGTERM`
+ * to drive graceful shutdown.
+ *
+ * On creation, the service registers process signal listeners. When a signal
+ * is received (or `destroy()` is called directly):
+ *
+ * 1. The abort signal is triggered, notifying any in-flight work.
+ * 2. Outstanding deferrals are awaited to completion.
+ * 3. Registered destroy callbacks are executed in registration order.
+ * 4. Signal listeners are removed to avoid leaking handlers.
+ * 5. The `run()` promise resolves with the final outcome.
+ *
+ * Calling `destroy()` more than once returns `"error"` immediately — shutdown
+ * is not re-entrant.
  */
 export const createNodeRunstateService = () => {
   const abort = new AbortController();
@@ -44,6 +64,9 @@ export const createNodeRunstateService = () => {
         console.error(error);
       }
     }
+    process.removeListener("SIGINT", destroy);
+    process.removeListener("SIGTERM", destroy);
+
     if (resolve) resolve(outcome);
     return outcome;
   };
@@ -55,7 +78,7 @@ export const createNodeRunstateService = () => {
   process.addListener("SIGINT", destroy);
   process.addListener("SIGTERM", destroy);
 
-  return {
+  const result = {
     abort: abort.signal,
     defer,
     destroy,
@@ -65,4 +88,5 @@ export const createNodeRunstateService = () => {
       return outcome;
     },
   };
+  return result satisfies RunstateService;
 };

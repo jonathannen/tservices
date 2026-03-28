@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "license": "MIT",
   "type": "module",
-  "exports": {},
+  "private": true,
   "scripts": {
-    "lint": "eslint -f eslint-formatter-prompter src/",
-    "format": "prettier --write src/"
+    "lint": "eslint -f eslint-formatter-prompter packages/",
+    "format": "prettier --write packages/"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

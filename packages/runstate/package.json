@@ -1,0 +1,11 @@
+{
+  "name": "@tservices/runstate",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "./types": "./types/index.ts",
+    "./nodejs": "./nodejs/index.ts",
+    "./mock": "./mock/index.ts"
+  }
+}

@@ -12,6 +12,8 @@ Services consist of:
 
 - `tservices/<service>/mock` the default mock implementation of the service that can be used for unit testing scenarios.
 
+- `tservices/<service>/stub` similar to a mock, but with minimal to no implementation.
+
 - `*tservices/<service>/<impl>` a specific implementation of the service for a particular technology or domain. It should expose a `create<impl><service>` function to instantiate the service.
 
 `create<impl><service>` should take a flat TypeScript interface and a Dependency Interface. This is typically expected to be run on process startup.

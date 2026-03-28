@@ -3,12 +3,14 @@ import type { RunstateService } from "../types";
 const noop = () => {};
 
 /**
- * Creates a mock Runstate Service that does nothing — for test environments
+ * Creates a stub Runstate Service that does nothing — for test environments
  * where the tests are expected to clean up for themselves.
  */
-export const createMockRunstateService = (): RunstateService => {
+export const createStubRunstateService = (): RunstateService => {
+  const controller = new AbortController();
+
   return {
-    abort: new AbortController().signal,
+    abort: controller.signal,
     outcome: undefined,
     defer: noop,
     onDestroy: noop,
